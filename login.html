@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>로그인</title>
+    <style media="screen">
+      a{text-decoration: none;color: black;}
+      p a:hover{color: red;}
+      td input{border: 1px solid black;}
+      button{
+        background:black;
+        color:#ffee76;
+        border:none;
+        position:relative;
+        height:60px;
+        font-size:1.6em;
+        padding:0 2em;
+        cursor:pointer;
+        transition:800ms ease all;
+        outline:none;
+      }
+      button:hover{
+        background:#ffee76;
+        color:black;
+      }
+      button:before,button:after{
+        content:'';
+        position:absolute;
+        top:0;
+        right:0;
+        height:2px;
+        width:0;
+        background: black;
+        transition:400ms ease all;
+      }
+      button:after{
+        right:inherit;
+        top:inherit;
+        left:0;
+        bottom:0;
+      }
+      button:hover:before,button:hover:after{
+        width:100%;
+        transition:800ms ease all;
+      }
+    </style>
+    <script type="text/javascript">
+      function f(){
+        alert('로그인이 완료되었습니다.');
+        location.href="list.html";
+      }
+      function check(){
+        if(event.keyCode==13||event.button==0){
+          if(!document.userInfo.id.value){
+            alert("아이디를 입력하세요.");
+            return false;
+          }
+          if(!document.userInfo.password.value){
+              alert("비밀번호를 입력하세요.");
+              return false;
+          }
+          else{
+            f();
+          }
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <center>
+    <form method="post" name="userInfo" onsubmit="return check();">
+      <h1><a href="login.html">로그인</a></h1>
+      <table>
+        <tr>
+          <td>아이디</td>
+          <td><input type="text" placeholder="ID" name="id" style="background-color:#ffee76;" onkeydown="check();"></td>
+          <td rowspan="2"><button type="button" onclick="check();">로그인</button></td>
+        </tr>
+        <tr>
+          <td>비밀번호</td>
+          <td><input type="password" placeholder="password" name="password" style="background-color:#ffee76;" onkeydown="check();"></td>
+        </tr>
+      </table>
+      <p style="font-size:10px;color:red;">아직 가입하지 않으셨나요? <a href="signup.html">회원가입</a></p>
+    </form>
+  </body>
+</html>

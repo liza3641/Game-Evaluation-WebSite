@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>게시물 작성</title>
+    <style>
+      input:focus, textarea:focus{outline: none;}
+      td input:focus, .td textarea:focus{outline: none;}
+      a{text-decoration: none;color: black;}
+      button{
+        background:#ffee76;
+        color:black;
+        border:none;
+        position:relative;
+        height:35px;
+        font-size:1.6em;
+        padding:0 2em;
+        cursor:pointer;
+        transition:800ms ease all;
+        outline:none;
+      }
+      button:hover{
+        background:black;
+        color:#ffee76;
+      }
+    </style>
+    <script type="text/javascript">
+      function f(){
+        alert('작성이 완료되었습니다.');
+        location.href="list.html";
+      }
+      function check(){
+        if(!document.userInfo.title.value){
+          alert("제목를 입력하세요.");
+          return false;
+        }
+        else{
+          f();
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <form method="post" name="userInfo" onsubmit="return check();" enctype="multipart/form-data">
+      <table width="60%" align="center" border="1">
+        <h1><p style="text-align:center"><a href="write.html">게시물 작성</a></p></h1>
+        <tr width ="10%">
+          <td style="text-align:center;">제목</td>
+          <td><input type="text" placeholder="제목을 입력하세요." name="title" style="background-color:transparent;border:0;" name="title"></td>
+        </tr>
+        <tr height="50" width ="10%">
+          <td style="text-align:center">내용</td>
+          <td><textarea cols="80" placeholder="내용을 입력하세요." name="content" rows="30" maxlength="2000" style="background-color:transparent;border:0;" name="text"></textarea></td>
+        </tr>
+        <tr height="50" width ="10%">
+          <td style="text-align:center">게임사진 첨부</td>
+          <td><input type="file" name="FileName"></td>
+        </tr>
+        <tr style="text-align:center">
+          <td colspan="2">
+          <button type="button" onclick="check()">등록</button><button type="button" onclick="location.href='list.html'">취소</button></td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>
