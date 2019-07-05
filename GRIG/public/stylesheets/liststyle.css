@@ -21,6 +21,7 @@
 }
 .snip1361 img {
   max-width: 100%;
+  height: 240px;
   vertical-align: top;
 }
 .snip1361 figcaption {
@@ -69,17 +70,23 @@
 .snip1361.hover figcaption {
   top: 80px;
 }
-.left-box {
-float: left;
-width: 30%;
+
+.parent {
+display: flex;
+
 }
-.center-box {
-float: left;
-width: 30%;
-margin-left: 50px;
+
+.parent .child{
+flex: 1;
+text-align: center;
 }
-.right-box {
-float: left;
-width: 30%;
-margin-left: 50px;
+
+.left{
+margin-left: 110px;
+}
+.center{
+margin-left: 35px;
+}
+.right{
+margin-left: 35px;
 }
