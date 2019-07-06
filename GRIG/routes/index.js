@@ -4,15 +4,31 @@ var session = require('express-session');
 
 var model = require('../models/loginDAO');
 
+var session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+
+router.use(session({
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: false,
+  store: new MongoStore({ url: 'mongodb://localhost/LoginUsers',
+  collection: "sessions"
+ })
+}));
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('list', {title: 'GRIG',username: null});
+    if(!req.session.name){
+        req.session.name = '로그인';
+      }
+  res.render('list', {title: 'GRIG',username: req.session.name});
 });
 
 /* GET login page. */
 router.get('/login', function(req, res, next) {
-  res.render('login', { title: 'GRIG', username: null});
+  res.render('login', { title: 'GRIG', username: req.session.name});
 });
+
 
 /* POST login page. */
 router.post('/login', function(req, res, next) {
@@ -21,9 +37,9 @@ router.post('/login', function(req, res, next) {
         callback: function(docs){
             if(!docs){
                 model.insertUser(req.body);
-                res.render('login', { title: 'GRIG', username: null});
+                res.render('login', { title: 'GRIG', username: req.session.name});
             }else{
-                res.render('regierr', { title: 'GRIG', username: null});
+                res.render('regierr', { title: 'GRIG', username: req.session.name});
             }
         }
         })
@@ -39,16 +55,25 @@ router.post('/login', function(req, res, next) {
             res.render('logerr', { title: 'GRIG', username: null, logerr: 0});
         }else{
             if(docs.email == req.body.email2 && docs.password == req.body.password2){
-                var sess;
-                sess = req.session;
-                res.render('list', {title: 'GRIG', username: docs.name});
+                req.session.name = docs.name;
+                res.render('list', {title: 'GRIG', username: req.session.name});
             }else{
-                res.render('logerr', { title: 'GRIG', username: null, logerr: 1});
+                res.render('logerr', { title: 'GRIG', username: req.session.name, logerr: 1});
             }
         }
     }
 
     })
 });
+
+router.get('/logout', (req,res,next)=>{
+    req.session.destroy((err)=>{
+        if(err){
+            console.log(err);
+        }else{
+            res.redirect('/');
+        }
+    });
+})
 
 module.exports = router;

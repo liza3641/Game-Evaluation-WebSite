@@ -8,6 +8,7 @@
 <body>
 		<% include index %>
 <section class="container">
+		<% if(username == '로그인'){ %>	
 		    <article class="half">
 			        <h1><%= title %></h1>
 			        <div class="tabs">
@@ -44,7 +45,13 @@
         					        </form>
             </div>
 			        </div>
-		    </article>
+			</article>
+			<% }else{ %>
+				로그인 되어 있습니다 <%= username %>님
+				<form action="http://localhost:3000/logout" method="get">
+					<input type="submit" value="logout" class="submit">
+			</form>
+			<% } %>
 		    <div class="half bg"></div>
 	</section>
 
