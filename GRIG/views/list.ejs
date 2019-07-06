@@ -19,44 +19,43 @@ function () {
    <h1><center>게임 목록</center></h1>
 <div class="parent">
  <div class="child left">
+   <% jdata.forEach(function(k){ if(k.id%3 == 1){ %>
    <figure class="snip1361" >
-     <img src="https://cdn.gamemeca.com/gmdata/0001/553/574/246577_%EB%A6%AC%EA%B7%B8%EC%98%A4%EB%B8%8C%EB%A0%88%EC%A0%84%EB%93%9C_%EA%B3%B5%EC%8B%9D01.jpg" alt="sample45" align="left">
+     <img src=<%= k.image %> alt="sample45" align="left">
      <figcaption>
-       <h3>리그오브레전드</h3>
-       <p>Weekends don't count unless you spend them doing something completely pointless.</p>
+       <h3><%= k.title %></h3>
+       <p>steam Url <%= k.url %></p>
      </figcaption>
      <a href="game1.html"></a>
    </figure>
-
-   <figure class="snip1361" >
-     <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample45.jpg" alt="sample45" align="left">
-     <figcaption>
-       <h3>마인크래프트</h3>
-       <p>Weekends don't count unless you spend them doing something completely pointless.</p>
-     </figcaption>
-     <a href="#"></a>
-   </figure>
- </div>
+  <% }}) %>
+</div>
 
  <div class="child center">
-   <figure class="snip1361"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample77.jpg" alt="sample77" align="center">
+   <% jdata.forEach(function(k){ if(k.id%3 == 2){ %>
+   <figure class="snip1361" >
+     <img src=<%= k.image %> alt="sample77" align="center">
      <figcaption>
-       <h3>오버워치</h3>
-       <p>I'm killing time while I wait for life to shower me with meaning and happiness. -</p>
+       <h3><%= k.title %></h3>
+       <p>steam Url <%= k.url %></p>
      </figcaption>
-     <a href="#"></a>
+     <a href="game1.html"></a>
    </figure>
+  <% }}) %>
  </div>
 
  <div class="child right">
-   <figure class="snip1361"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample99.jpg" alt="sample99" />
-     <figcaption>
-       <h3>하스스톤</h3>
-       <p>The only skills I have the patience to learn are those that have no real application in life. </p>
-     </figcaption>
-     <a href="#"></a>
-   </figure>
- </div>
+    <% jdata.forEach(function(k){ if(k.id%3 == 0){ %>
+      <figure class="snip1361" >
+        <img src=<%= k.image %> alt="sample99" align="center">
+        <figcaption>
+          <h3><%= k.title %></h3>
+          <p>steam Url <%= k.url %></p>
+        </figcaption>
+        <a href="game1.html"></a>
+      </figure>
+     <% }}) %>
+  </div>
 </div>
 
 

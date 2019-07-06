@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var session = require('express-session');
+var jd = require('../steamList.json');
 
 var model = require('../models/loginDAO');
 
@@ -21,7 +22,7 @@ router.get('/', function(req, res, next) {
     if(!req.session.name){
         req.session.name = '로그인';
       }
-  res.render('list', {title: 'GRIG',username: req.session.name});
+  res.render('list', {title: 'GRIG',username: req.session.name, jdata: jd});
 });
 
 /* GET login page. */
