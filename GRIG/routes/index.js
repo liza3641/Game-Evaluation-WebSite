@@ -57,7 +57,7 @@ router.post('/login', function(req, res, next) {
         }else{
             if(docs.email == req.body.email2 && docs.password == req.body.password2){
                 req.session.name = docs.name;
-                res.render('list', {title: 'GRIG', username: req.session.name});
+                res.render('list', {title: 'GRIG', username: req.session.name, jdata: jd});
             }else{
                 res.render('logerr', { title: 'GRIG', username: req.session.name, logerr: 1});
             }
