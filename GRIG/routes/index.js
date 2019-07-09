@@ -4,6 +4,7 @@ var session = require('express-session');
 var jd = require('../steamList.json');
 
 var model = require('../models/loginDAO');
+var Gmodel = require('../models/gameDAO');
 
 var session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
@@ -38,7 +39,7 @@ router.post('/login', function(req, res, next) {
         callback: function(docs){
             if(!docs){
                 model.insertUser(req.body);
-                res.render('login', { title: 'GRIG', username: req.session.name});
+              res.render('login', { title: 'GRIG', username: req.session.name});
             }else{
                 res.render('regierr', { title: 'GRIG', username: req.session.name});
             }
@@ -76,5 +77,7 @@ router.get('/logout', (req,res,next)=>{
         }
     });
 })
+
+
 
 module.exports = router;
