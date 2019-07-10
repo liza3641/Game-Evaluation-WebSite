@@ -46,13 +46,15 @@
             </div>
 			        </div>
 			</article>
+			<div class="half bg"></div>
 			<% }else{ %>
-				로그인 되어 있습니다 <%= username %>님
+				<h1>로그인 되어 있습니다 <span style="color:#92B3B7"><%= username %></span>님</h1>
+				<div class="half bg"></div>
 				<form action="http://localhost:3000/logout" method="get">
-					<input type="submit" value="logout" class="submit">
+					<center><input type="image" value="logout" class="submit" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkaAN3J78Rc4X47mZzTF8Y-2pDMnTvAN3GXviGoIh_5ICZ_uEH" ></center>
 			</form>
 			<% } %>
-		    <div class="half bg"></div>
+			
 	</section>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
