@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var steamRouter = require('./routes/steam');
+var godbRouter = require('./routes/godb');
 
 var app = express();
 
@@ -20,7 +20,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/steam', steamRouter);
+app.use('/godb', godbRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

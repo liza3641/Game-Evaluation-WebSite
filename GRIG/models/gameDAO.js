@@ -10,7 +10,7 @@ MongoClient.connect(url,{useNewUrlParser: true}, function(err,client){
     db.Gamedata = db.collection('Gamedata');
 });
 
-// 유저 데이터 제공
+// 게임 데이터 제공
 exports.GameList = function(obj){
     db.Gamedata.findOne(obj.query, function(err,docs){
         if(err){
@@ -24,7 +24,12 @@ exports.GameList = function(obj){
 
 // 유저 항목 추가
 exports.insertGame = function(insertData){
-    db.Gamedata.insertOne({title:insertData.title, description:insertData.description, SP:insertData.SP},
+    db.Gamedata.insertOne({
+        title:insertData.title,
+        Count: 0,
+        SP: 0,
+        Participants: []
+        },
         function(err, result){
             if(err){
                 console.log(err.message)
@@ -32,4 +37,13 @@ exports.insertGame = function(insertData){
                 console.log('data inserted')
             }
         })
+}
+
+exports.updateGSP = function(insertData){
+    db.Gamedata.updateOne(insertData.title,{
+        $set: {SP: this.SP+insertData.SP}
+        
+    }, (err)=>{
+        console.log(err);
+    })
 }
