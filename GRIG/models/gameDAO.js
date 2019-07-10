@@ -23,13 +23,20 @@ exports.GameList = function(obj){
 
 exports.GameStarDown = function(obj)
     {db.Gamedata.updateOne({"title":obj.title},
-    {$inc:{SP: obj.insp}, $pull:{Participants: obj.name}}
+    {$pull:{SP: obj.insp, Participants: obj.name}},
+    function(err,doc3){
+        if(err){
+            console.log(err.message);
+        }else{
+            obj.callback(doc3);
+        }
+    }
     )
 }
 
 exports.GameStarUp = function(obj){
     db.Gamedata.updateOne({"title":obj.title},
-        {$inc:{SP: obj.insp}, $push:{Participants: obj.name}},
+        {$push:{SP: obj.insp, Participants: obj.name}},
         function(err,doc2){
             if(err){
                 console.log(err.message);
@@ -44,7 +51,6 @@ exports.GameStarUp = function(obj){
 exports.insertGame = function(insertData){
     db.Gamedata.insertOne({
         title:insertData.title,
-        Count: 0,
         SP: [10],
         Participants: ["admin"]
         },

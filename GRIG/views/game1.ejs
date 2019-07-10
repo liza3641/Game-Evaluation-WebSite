@@ -176,18 +176,24 @@
     <table >
     <caption></caption>
     <thead>
+      <% var tet=0; var ninsu=0; %>
+      <% DOCS.SP.forEach(function(i, index){
+        tet+=i;
+        ninsu+=1;
+      }) %>
+      <% tet=tet/ninsu %>
       <tr>
-        <th colspan="5"><h1><%= jdata.title %></h1></th>
+        <th colspan="5"><h1><%= jdata.title %></h1><br>평균 별점 : <%= tet %></th>
 
       </tr>
     </thead>
     <tbody>
       <tr>
         <th colspan="2" rowspan="4"><img src=<%= jdata.image %>></th>
-        <th colspan="3" rowspan="4"><% DOCS.forEach(function(i, index){ %>
-          <% if(index<=9){ %>
-          <li><%= i %></li>
-          <%}}) %></th>
+        <th colspan="3" rowspan="4"><% DOCS.Participants.forEach(function(i, index){ %>
+          <li><%= DOCS.Participants[index] %>가 별점 <%= DOCS.SP[index] %>점!!</li>
+        <% }) %>
+        </th>
       </tr>
       <tr>
       </tr>
@@ -211,7 +217,7 @@
               <input type="radio" name="star-input" id="p9" value="9"><label for="p9">9</label>
               <input type="radio" name="star-input" id="p10" value="10"><label for="p10">10</label>
             </span>
-            <button type="button" onclick="location.href='/SPUP'">입력하기</button>
+            <button type="button" onclick="location.href='/SPUP/<%= i2d %>/4'">입력하기</button>
           </td>
         </td>
         <td>  <button type="button" onclick="location.href='/'">돌아가기</button></td>

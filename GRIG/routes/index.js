@@ -86,34 +86,42 @@ router.get('/game/:id', (req,res,next)=>{
         res.render('game1', {title: 'GRIG',
         username: req.session.name,
         jdata: jd[req.params.id], 
-        DOCS: docs.Participants});
+        DOCS: docs,
+        i2d: req.params.id});
     }
     })
 })
 
 router.get('/SPUP/:id/:insp', (req,res,next)=>{
-    Gmodel.GameList({query:{title: jd[req.params.id].title},
-        callback: function(docs){
-            var ilchi = false;
-            var NowInd = null;
-            docs.Participants.forEach(function(neme, index, array){
-                if(neme == req.session.name){
-                    ilchi = true;
-                    NowInd = index;
+    if(req.session.name != null){
+        Gmodel.GameList({query:{title: jd[req.params.id].title},
+            callback: function(docs){
+                var ilchi = false;
+                var NowInd = null;
+                docs.Participants.forEach(function(neme, index, array){
+                    if(neme == req.session.name){
+                        ilchi = true;
+                        NowInd = index;
+                    }
+                })
+                if(ilchi){
+                    var realisp = docs.SP[NowInd];
+                    Gmodel.GameStarDown({title: docs.title, insp: realisp, name:req.session.name,
+                    callback: function(doc3){
+                        res.redirect("/game/"+req.params.id);
+                    }})
+                }else{
+                    Gmodel.GameStarUp({title: docs.title, insp: Number(req.params.insp), name:req.session.name,
+                    callback: function(doc2){
+                        res.redirect("/game/"+req.params.id);
+                    }
+                })
                 }
-            })
-            if(ilchi){
-                var realisp = docs.SP[NowInd] * -1;
-                Gmodel.GameStarDown({title: docs.title, insp: realisp, name:req.session.name})
-            }else{
-                Gmodel.GameStarUp({title: docs.title, insp: req.params.insp, name:req.session.name,
-                callback: function(doc2){
-                    res.redirect("/game/"+req.params.id);
-                }
-            })
             }
-        }
-    })
+        })
+    }else{
+        res.redirect("/login");
+    }
 })
 
 router.get('/godb', function(req, res, next) {
