@@ -27,8 +27,8 @@ exports.insertGame = function(insertData){
     db.Gamedata.insertOne({
         title:insertData.title,
         Count: 0,
-        SP: 0,
-        Participants: []
+        SP: 5,
+        Participants: ["admin:5"]
         },
         function(err, result){
             if(err){

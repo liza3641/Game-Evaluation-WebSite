@@ -81,9 +81,29 @@ router.get('/logout', (req,res,next)=>{
 })
 
 router.get('/game/:id', (req,res,next)=>{
-    res.render('game1', {title: 'GRIG',username: req.session.name, jdata: jd, GID: req.params.id});
+    Gmodel.GameList({query:{title: jd[req.params.id].title},
+    callback: function(docs){
+        res.render('game1', {title: 'GRIG',
+        username: req.session.name,
+        jdata: jd[req.params.id], 
+        DOCS: docs.Participants});
+    }
+    })
 })
 
+router.get('/godb', function(req, res, next) {
+    jd.forEach(function(k){
+        Gmodel.GameList({query:{title: k.title},
+        callback: function(docs){
+            if(!docs){
+                Gmodel.insertGame(k);
+            }else{
+                console.log("already created");
+            }
+        }
+        })
+    })
+});
 router.get('/steam', function(req, res, next) {
     axios.get('https://store.steampowered.com/search/?filter=topsellers&tags=492&category1=998')
     .then((response) => {
