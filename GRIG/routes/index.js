@@ -39,12 +39,15 @@ router.post('/login', function(req, res, next) {
     if(req.body.name && req.body.email && req.body.password){
         model.UserList({query:{email: req.body.email},
         callback: function(docs){
-            if(!docs){
-                model.insertUser(req.body);
-              res.render('login', { title: 'GRIG', username: req.session.name});
-            }else{
-                res.render('regierr', { title: 'GRIG', username: req.session.name});
-            }
+            model.UserList({query:{name: req.body.name},
+            callback: function(docs4){
+                if(!docs && !docs4){
+                    model.insertUser(req.body);
+                  res.render('login', { title: 'GRIG', username: req.session.name});
+                }else{
+                    res.render('regierr', { title: 'GRIG', username: req.session.name});
+                } 
+            }})
         }
         })
      }else{
@@ -94,6 +97,7 @@ router.get('/game/:id', (req,res,next)=>{
 
 router.get('/SPUP/:id/:insp', (req,res,next)=>{
     if(req.session.name != null){
+        console.log(req.params.insp);
         Gmodel.GameList({query:{title: jd[req.params.id].title},
             callback: function(docs){
                 var ilchi = false;

@@ -135,6 +135,10 @@
 
     </style>
     <script type="text/javascript">
+      var SeekStar = function(){
+        var starsu = document.querySelector('input[name="star-input"]:checked').value;
+        window.location = `http://localhost:3000/SPUP/<%= i2d %>/${starsu}`;
+      }
           // star rating
       var starRating = function(){
       var $star = $(".star-input"),
@@ -217,7 +221,7 @@
               <input type="radio" name="star-input" id="p9" value="9"><label for="p9">9</label>
               <input type="radio" name="star-input" id="p10" value="10"><label for="p10">10</label>
             </span>
-            <button type="button" onclick="location.href='/SPUP/<%= i2d %>/4'">입력하기</button>
+            <button type="button" onclick="SeekStar()">입력하기</button>
           </td>
         </td>
         <td>  <button type="button" onclick="location.href='/'">돌아가기</button></td>
