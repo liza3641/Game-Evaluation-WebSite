@@ -21,14 +21,32 @@ exports.GameList = function(obj){
     });
 }
 
+exports.GameStarDown = function(obj)
+    {db.Gamedata.updateOne({"title":obj.title},
+    {$inc:{SP: obj.insp}, $pull:{Participants: obj.name}}
+    )
+}
+
+exports.GameStarUp = function(obj){
+    db.Gamedata.updateOne({"title":obj.title},
+        {$inc:{SP: obj.insp}, $push:{Participants: obj.name}},
+        function(err,doc2){
+            if(err){
+                console.log(err.message);
+            }else{
+                obj.callback(doc2);
+            }
+        }
+    )
+}
 
 // 유저 항목 추가
 exports.insertGame = function(insertData){
     db.Gamedata.insertOne({
         title:insertData.title,
         Count: 0,
-        SP: 5,
-        Participants: ["admin:5"]
+        SP: [10],
+        Participants: ["admin"]
         },
         function(err, result){
             if(err){
@@ -37,13 +55,4 @@ exports.insertGame = function(insertData){
                 console.log('data inserted')
             }
         })
-}
-
-exports.updateGSP = function(insertData){
-    db.Gamedata.updateOne(insertData.title,{
-        $set: {SP: this.SP+insertData.SP}
-        
-    }, (err)=>{
-        console.log(err);
-    })
 }

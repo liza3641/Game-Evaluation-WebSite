@@ -91,6 +91,31 @@ router.get('/game/:id', (req,res,next)=>{
     })
 })
 
+router.get('/SPUP/:id/:insp', (req,res,next)=>{
+    Gmodel.GameList({query:{title: jd[req.params.id].title},
+        callback: function(docs){
+            var ilchi = false;
+            var NowInd = null;
+            docs.Participants.forEach(function(neme, index, array){
+                if(neme == req.session.name){
+                    ilchi = true;
+                    NowInd = index;
+                }
+            })
+            if(ilchi){
+                var realisp = docs.SP[NowInd] * -1;
+                Gmodel.GameStarDown({title: docs.title, insp: realisp, name:req.session.name})
+            }else{
+                Gmodel.GameStarUp({title: docs.title, insp: req.params.insp, name:req.session.name,
+                callback: function(doc2){
+                    res.redirect("/game/"+req.params.id);
+                }
+            })
+            }
+        }
+    })
+})
+
 router.get('/godb', function(req, res, next) {
     jd.forEach(function(k){
         Gmodel.GameList({query:{title: k.title},
@@ -130,5 +155,7 @@ router.get('/steam', function(req, res, next) {
 }, (error) => console.log(error) )
 res.redirect('/');
 });
+
+
 
 module.exports = router;
