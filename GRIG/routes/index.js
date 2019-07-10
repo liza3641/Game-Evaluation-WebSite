@@ -21,7 +21,7 @@ router.use(session({
 /* GET home page. */
 router.get('/', function(req, res, next) {
     if(!req.session.name){
-        req.session.name = '로그인';
+        req.session.name = null;
       }
   res.render('list', {title: 'GRIG',username: req.session.name, jdata: jd});
 });
@@ -78,6 +78,9 @@ router.get('/logout', (req,res,next)=>{
     });
 })
 
+router.get('/game/:id', (req,res,next)=>{
+    res.render('game1', {title: 'GRIG',username: req.session.name, jdata: jd, GID: req.params.id});
+})
 
 
 module.exports = router;

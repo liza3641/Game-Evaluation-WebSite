@@ -19,40 +19,40 @@ function () {
    <h1><center>게임 목록</center></h1>
 <div class="parent">
  <div class="child left">
-   <% jdata.forEach(function(k){ if(k.id%3 == 1){ %>
+   <% jdata.forEach(function(k){ if(k.id%3 == 0){ %>
    <figure class="snip1361" >
      <img src=<%= k.image %> alt="sample45" align="left">
      <figcaption>
        <h3><%= k.title %></h3>
-       <p><%= k.price %></p>
+       <p>정가<br>  <%= k.price %></p>
      </figcaption>
-     <a href="game1.html"></a>
+     <a href="/game/<%= k.id %>"></a>
    </figure>
   <% }}) %>
 </div>
 
  <div class="child center">
-   <% jdata.forEach(function(k){ if(k.id%3 == 2){ %>
+   <% jdata.forEach(function(k){ if(k.id%3 == 1){ %>
    <figure class="snip1361" >
      <img src=<%= k.image %> alt="sample77" align="center">
      <figcaption>
        <h3><%= k.title %></h3>
-       <p>steam Url <%= k.price %></p>
+       <p>정가<br>  <%= k.price %></p>
      </figcaption>
-     <a href="game1.html"></a>
+     <a href="/game/<%= k.id %>"></a>
    </figure>
   <% }}) %>
  </div>
 
  <div class="child right">
-    <% jdata.forEach(function(k){ if(k.id%3 == 0){ %>
+    <% jdata.forEach(function(k){ if(k.id%3 == 2){ %>
       <figure class="snip1361" >
         <img src=<%= k.image %> alt="sample99" align="center">
         <figcaption>
           <h3><%= k.title %></h3>
-          <p>steam Url <%= k.price %></p>
+          <p>정가<br>  <%= k.price %></p>
         </figcaption>
-        <a href="game1.html"></a>
+        <a href="/game/<%= k.id %>"></a>
       </figure>
      <% }}) %>
   </div>

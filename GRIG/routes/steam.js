@@ -1,9 +1,12 @@
+var express = require('express');
+var router = express.Router();
 const axios = require('axios');
 const cheerio = require('cheerio');
 const url = require('url');
 let fs = require('fs');
 var jd = require('../steamList.json');
-axios.get('https://store.steampowered.com/search/?filter=topsellers&tags=492&category1=998')
+router.get('/steam', function(req, res, next) {
+    axios.get('https://store.steampowered.com/search/?filter=topsellers&tags=492&category1=998')
     .then((response) => {
         if(response.status === 200) {
             const html = response.data;
@@ -16,8 +19,8 @@ axios.get('https://store.steampowered.com/search/?filter=topsellers&tags=492&cat
                     title: $(this).find('div.responsive_search_name_combined div.ellipsis span.title').text(),
                     url: Myurl.href,
                     image: "https://steamcdn-a.akamaihd.net/steam/apps/"+myurlarray[2]+"/header.jpg",
-                    price: $(this).find('div.search_price span strike').text(),
-                    id: i+1
+                    price: $(this).find('div.search_price').text(),
+                    id: i
                 }      
             });
             const steamListTrimmed = steamList.filter(n => n != undefined )
@@ -25,5 +28,8 @@ axios.get('https://store.steampowered.com/search/?filter=topsellers&tags=492&cat
                           JSON.stringify(steamListTrimmed, null, 4), 
                           (err)=> console.log('File successfully written!'))
     }
-}, (error) => console.log(err) ) 
+}, (error) => console.log(err) )
+res.redirect('/');
+});
 
+module.exports = router;
