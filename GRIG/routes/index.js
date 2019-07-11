@@ -110,7 +110,7 @@ router.get('/SPUP/:id/:insp', (req,res,next)=>{
                 })
                 if(ilchi){
                     var realisp = docs.SP[NowInd];
-                    Gmodel.GameStarDown({title: docs.title, insp: realisp, name:req.session.name,
+                    Gmodel.GameStarDown({title: docs.title, insp: realisp, name:req.session.name, Imaind: NowInd,
                     callback: function(doc3){
                         res.redirect("/game/"+req.params.id);
                     }})

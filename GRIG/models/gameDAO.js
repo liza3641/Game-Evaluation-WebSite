@@ -23,12 +23,20 @@ exports.GameList = function(obj){
 
 exports.GameStarDown = function(obj)
     {db.Gamedata.updateOne({"title":obj.title},
-    {$pull:{SP: obj.insp, Participants: obj.name}},
+    {$pull:{Participants: obj.name}},
     function(err,doc3){
         if(err){
             console.log(err.message);
         }else{
-            obj.callback(doc3);
+            var query = {};
+            query['SP.'+obj.Imaind] = 1;
+            db.Gamedata.updateOne({"title":obj.title},
+            {$unset : query},()=>{
+                db.Gamedata.updateOne({"title":obj.title},
+            {$pull : {"SP": null}},()=>{
+                obj.callback(doc3);
+            });
+            });
         }
     }
     )
