@@ -20,7 +20,7 @@ function () {
 <div class="parent">
  <div class="child left">
    <% jdata.forEach(function(k){ if(k.id%3 == 0){ %>
-   <figure class="snip1361" >
+   <figure class="imagelist" >
      <img src=<%= k.image %> alt="sample45" align="left">
      <figcaption>
        <h3><%= k.title %></h3>
@@ -33,7 +33,7 @@ function () {
 
  <div class="child center">
    <% jdata.forEach(function(k){ if(k.id%3 == 1){ %>
-   <figure class="snip1361" >
+   <figure class="imagelist" >
      <img src=<%= k.image %> alt="sample77" align="center">
      <figcaption>
        <h3><%= k.title %></h3>
@@ -46,7 +46,7 @@ function () {
 
  <div class="child right">
     <% jdata.forEach(function(k){ if(k.id%3 == 2){ %>
-      <figure class="snip1361" >
+      <figure class="imagelist" >
         <img src=<%= k.image %> alt="sample99" align="center">
         <figcaption>
           <h3><%= k.title %></h3>
